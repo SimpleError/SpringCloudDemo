@@ -1,0 +1,26 @@
+#注册进eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+#配置网关端口号
+server:
+  port: 8891
+spring:
+  application:
+    name: zuul-server
+#配置网关转发详情
+zuul:
+  routes:
+    api-a:
+      path: /member/**
+      service-id: member-server
+    api-b:
+      path: /order/**
+      service-id: order-server
+  host:
+    connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000   #socket超时
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
